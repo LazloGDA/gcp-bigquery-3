@@ -24,13 +24,15 @@ resource "google_dataproc_cluster" "small_cluster" {
   
     # Advanced Spark optimizations (without caching)
     software_config {
-      properties = {
+      optional_components = [ "JUPYTER" ]
+      override_properties = {
         "dataproc:dataproc.allow.zero.workers" = "true"
         "spark:enableAdvancedOptimizations"    = "true"
         "spark:enableAdvancedExecutionLayer"   = "true"
         "spark:enableCaching"                  = "false"
       }
+    }  
     }
-  }
 }
+
 # END the Dataproc cluster configuration
